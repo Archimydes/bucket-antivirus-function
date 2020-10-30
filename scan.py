@@ -34,6 +34,8 @@ from common import AV_SIGNATURE_METADATA
 from common import AV_STATUS_CLEAN
 from common import AV_STATUS_INFECTED
 from common import AV_STATUS_METADATA
+from common import AV_EXPECTED_BUCKET_KEY
+from common import AV_EXPECTED_BUCKET_KEY_STATUS
 from common import AV_STATUS_SNS_ARN
 from common import AV_STATUS_SNS_PUBLISH_CLEAN
 from common import AV_STATUS_SNS_PUBLISH_INFECTED
@@ -195,6 +197,10 @@ def sns_scan_results(
             AV_SIGNATURE_METADATA: {
                 "DataType": "String",
                 "StringValue": scan_signature,
+            },
+            AV_EXPECTED_BUCKET_KEY_STATUS: {
+                "DataType": "String",
+                "StringValue": "PRESENT" if AV_EXPECTED_BUCKET_KEY in s3_object.key else "NOT_PRESENT"
             },
         },
     )
