@@ -29,6 +29,7 @@ from common import AV_DELETE_INFECTED_FILES
 from common import AV_PROCESS_ORIGINAL_VERSION_ONLY
 from common import AV_SCAN_START_METADATA
 from common import AV_SCAN_START_SNS_ARN
+from common import AV_SCAN_BUCKET
 from common import AV_SIGNATURE_METADATA
 from common import AV_STATUS_CLEAN
 from common import AV_STATUS_INFECTED
@@ -191,6 +192,7 @@ def sns_scan_results(
         Message=json.dumps({"default": json.dumps(message)}),
         MessageStructure="json",
         MessageAttributes={
+            AV_SCAN_BUCKET: {"DataType": "String", "StringValue": s3_object.bucket_name},
             AV_STATUS_METADATA: {"DataType": "String", "StringValue": scan_result},
             AV_SIGNATURE_METADATA: {
                 "DataType": "String",
